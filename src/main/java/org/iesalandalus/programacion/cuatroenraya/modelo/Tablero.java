@@ -66,17 +66,31 @@ public class Tablero {
     }
 
     private void comprobarColumna(int columna) throws CuatroEnRayaExcepcion{
+        Objects.requireNonNull(columna, "El parámetro columna no puede ser nulo");
         if (columna < 0 | columna > 6) {
             throw new CuatroEnRayaExcepcion("El parámetro columna no es válido");
         }
     }
 
-    private int getPrimeraFilaVacia(int columna) {
-
+    private int getPrimeraFilaVacia(int columna) throws CuatroEnRayaExcepcion {
+        boolean primeraFilaVaciaBooleano = false;
+        int primeraFilaVaciaNumero = 0;
+        int indice = 0;
+        do {
+            if (casillasTablero[indice][columna] == null) {
+                primeraFilaVaciaNumero = indice;
+                primeraFilaVaciaBooleano = true;
+            }
+            indice++;
+        } while (indice < FILAS || primeraFilaVaciaBooleano == true);
+        if (primeraFilaVaciaBooleano == false) {
+            throw new CuatroEnRayaExcepcion("No hay ninguna fila vacía en la columna [" + columna + "]");
+        }
+        return primeraFilaVaciaNumero;
     }
 
     private boolean comprobarTirada(int fila, int columna) {
-
+        
     }
 
     private boolean objetivoAlcanzado(int fichasIgualesConsecutivas) {
