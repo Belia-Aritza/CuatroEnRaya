@@ -98,23 +98,64 @@ public class Tablero {
     }
 
     private boolean comprobarHorizontal(int fila, Ficha ficha) {
+        boolean comprobarHorizontal = false;
+        int numeroSeguidoHorizontal = 0;
+        for(int indice = 0;indice < COLUMNAS && numeroSeguidoHorizontal == 4; indice++) {
+            if (casillasTablero[fila][indice].equals(ficha)) {
+                numeroSeguidoHorizontal++;
+            } else {
+                numeroSeguidoHorizontal = 0;
+            }
 
+        }
+        if (numeroSeguidoHorizontal == 4) {
+            comprobarHorizontal = true;
+        }
+        return comprobarHorizontal;
     }
 
     private boolean comprobarVertical(int columna, Ficha ficha) {
+        boolean comprobarVertical = false;
+        int numeroSeguidoVertical = 0;
+        for(int indice = 0;indice < FILAS && numeroSeguidoVertical == 4; indice++) {
+            if (casillasTablero[indice][columna].equals(ficha)) {
+                numeroSeguidoVertical++;
+            } else {
+                numeroSeguidoVertical = 0;
+            }
 
+        }
+        if (numeroSeguidoVertical == 4) {
+            comprobarVertical = true;
+        }
+        return comprobarVertical;
     }
 
-    private boolean comprobarDiagonalNE(int filaActual, int columnaActual, Ficha ficha) {
+    private boolean comprobarDiagonalNE(int filaActual, int columnaActual, Ficha ficha) throws CuatroEnRayaExcepcion {
+        comprobarColumna(columnaActual);
+        comprobarFicha(ficha);
+        for (int fila1 = filaActual, columna1 = columnaActual;fila1 < 0 && columna1 < 0; fila1--, columna1--)
+        for(int fila = 0, columna = 0; fila < FILAS && columna < COLUMNAS; fila++, columna++) {
+            if(casillasTablero[][]) {
 
+            }
+        }
     }
 
     private boolean comprobarDiagonalNO(int filaActual, int columna, Ficha ficha) {
 
     }
 
-    private int menor(int fila, int columna) {
-
+    private int menor(int fila, int columna) throws CuatroEnRayaExcepcion {
+        comprobarColumna(columna);
+        int menor = 0;
+        if (fila > columna) {
+            menor = fila;
+        }
+        if (columna > fila) {
+            menor = columna;
+        }
+        return menor;
     }
 
     @Override
