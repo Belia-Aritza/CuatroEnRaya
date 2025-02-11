@@ -99,16 +99,19 @@ public class Tablero {
 
     private boolean comprobarHorizontal(int fila, Ficha ficha) {
         boolean comprobarHorizontal = false;
-        int numeroSeguidoHorizontal = 0;
-        for(int indice = 0;indice < COLUMNAS && numeroSeguidoHorizontal == 4; indice++) {
-            if (casillasTablero[fila][indice].equals(ficha)) {
-                numeroSeguidoHorizontal++;
+        int numeroSeguidoHorizontalVerde = 0;
+        int numeroSeguidoHorizontalAzul = 0;
+        for(int indice = 0;indice < COLUMNAS && numeroSeguidoHorizontalVerde == 4; indice++) {
+            if (casillasTablero[fila][indice].equals(ficha.VERDE)) {
+                numeroSeguidoHorizontalVerde++;
             } else {
-                numeroSeguidoHorizontal = 0;
+                numeroSeguidoHorizontalVerde = 0;
             }
+            if (casillasTablero[fila][indice] == ficha.AZUL) {
 
+            }
         }
-        if (numeroSeguidoHorizontal == 4) {
+        if (numeroSeguidoHorizontalVerde == 4) {
             comprobarHorizontal = true;
         }
         return comprobarHorizontal;
@@ -123,7 +126,6 @@ public class Tablero {
             } else {
                 numeroSeguidoVertical = 0;
             }
-
         }
         if (numeroSeguidoVertical == 4) {
             comprobarVertical = true;
@@ -134,16 +136,45 @@ public class Tablero {
     private boolean comprobarDiagonalNE(int filaActual, int columnaActual, Ficha ficha) throws CuatroEnRayaExcepcion {
         comprobarColumna(columnaActual);
         comprobarFicha(ficha);
-        for (int fila1 = filaActual, columna1 = columnaActual;fila1 < 0 && columna1 < 0; fila1--, columna1--)
-        for(int fila = 0, columna = 0; fila < FILAS && columna < COLUMNAS; fila++, columna++) {
-            if(casillasTablero[][]) {
 
+        int fila1 = filaActual;
+        int columna1 = columnaActual;
+        do {
+            fila1--;
+            columna1--;
+            if (fila1 == 0 && columna1 != 0) {
+                columna1--;
             }
-        }
+        } while (fila1 > 0 || columna1 > 0);
+
+        int numeroSeguidoDiagonalNE = 0;
+        boolean numeroSeguidoDiagonalNEBooleano = false;
+        do {
+            if (casillasTablero[fila1][columna1].equals(ficha)) {
+                numeroSeguidoDiagonalNE++;
+            } else {
+                numeroSeguidoDiagonalNE = 0;
+            }
+            if (numeroSeguidoDiagonalNE == 4) {
+                numeroSeguidoDiagonalNEBooleano = true;
+            }
+        } while ((fila1 < FILAS && columna1 < COLUMNAS) && (numeroSeguidoDiagonalNE == 4));
+        return numeroSeguidoDiagonalNEBooleano;
     }
 
-    private boolean comprobarDiagonalNO(int filaActual, int columna, Ficha ficha) {
+    private boolean comprobarDiagonalNO(int filaActual, int columnaActual, Ficha ficha) {
+        comprobarColumna(columnaActual);
+        comprobarFicha(ficha);
 
+        int fila1 = filaActual;
+        int columna1 = columnaActual;
+        do {
+            fila1--;
+            columna1--;
+            if (fila1 == 0 && columna1 != 0) {
+                columna1--;
+            }
+        } while (fila1 > 0 || columna1 > 0);
     }
 
     private int menor(int fila, int columna) throws CuatroEnRayaExcepcion {
